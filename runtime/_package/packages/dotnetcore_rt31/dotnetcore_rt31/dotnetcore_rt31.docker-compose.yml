@@ -1,0 +1,25 @@
+---
+version: '3'
+services:
+
+# START SERVICE dotnetcore_runtime31.base
+  dotnetcore_runtime31:
+    image: ${CONTECO_REGISTRY}${CONTECO_REALM_RUNTIME}/conteco.dotnetcore_runtime31.base:3.1.3
+    environment: [${DOTNETCORE_RT31_ENVIRONMENT}]
+    command: [${DOTNETCORE_RT31_COMMAND}]
+    volumes: ['${CONTECO_STACKPREFIX}_dotnetcore_RUNTIME31_volume:/app']
+    ports: []
+    networks: [${CONTECO_NETWORKLOCAL}_overlay]
+    deploy:
+      mode: ${DOTNETCORE_RT31_DEPLOY_MODE}
+      resources:
+        limits:
+          memory: '${DOTNETCORE_RT31_DEPLOY_RESOURCES_LIMITS_MEMORY}'
+        reservations:
+          memory: '${DOTNETCORE_RT31_DEPLOY_RESOURCES_RESERVATIONS_MEMORY}'
+${DOTNETCORE_RT31_COMPOSE_EXTENSIONS}
+# END SERVICE dotnetcore_runtime31.base
+
+networks: {${CONTECO_NETWORKLOCAL}_overlay: { external: true }}
+volumes: {${CONTECO_STACKPREFIX}_dotnetcore_RUNTIME31_volume: { external: true }}
+${CONTECO_DC_GLOBAL_COMPOSE_EXTENSIONS}
