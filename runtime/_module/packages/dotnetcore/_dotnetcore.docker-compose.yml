@@ -1,0 +1,25 @@
+---
+version: '3'
+services:
+
+# START SERVICE vcwc/dotnetcore/runtime
+  dotnetcore:
+    image: ${VCW_REGISTRY}mcr.microsoft.com/dotnetcore.runtime:3.1
+    environment: [${DOTNETCORE_ENVIRONMENT}]
+    command: [${DOTNETCORE_COMMAND}]
+    volumes: ['${VCW_STACK_STACKPREFIX}_dotnetcore_runtime_volume:/app']
+    ports: []
+    networks: [${VCW_STACK_NETWORKLOCAL}_overlay]
+    deploy:
+      mode: ${DOTNETCORE_DEPLOY_MODE}
+      resources:
+        limits:
+          memory: '${DOTNETCORE_DEPLOY_RESOURCES_LIMITS_MEMORY}'
+        reservations:
+          memory: '${DOTNETCORE_DEPLOY_RESOURCES_RESERVATIONS_MEMORY}'
+${DOTNETCORE_COMPOSE_EXTENSIONS}
+# END SERVICE vcwc/dotnetcore/runtime
+
+networks: {${VCW_STACK_NETWORKLOCAL}_overlay: { external: true }}
+volumes: {${VCW_STACK_STACKPREFIX}_dotnetcore_runtime_volume: { external: true }}
+${VCW_STACK_GLOBAL_COMPOSE_EXTENSIONS}

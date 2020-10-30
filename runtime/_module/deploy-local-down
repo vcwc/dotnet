@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+prefix="vcwc_dotnetcore_runtime__$1"
+prefix="vcwc_dotnetcore_runtime__$1"
+
+executionplane --silent docker container prune --force
+
+if [[ "vcwc_dotnetcore_runtime__dotnetcore_dotnetcore_runtime_volume" == "$prefix"* ]] ; then
+	continue="true"
+	while [[ "true" == "$continue" ]] ;
+	do
+		executionplane docker volume rm "vcwc_dotnetcore_runtime__dotnetcore_dotnetcore_runtime_volume"
+		result=$(docker volume ls | grep "vcwc_dotnetcore_runtime__dotnetcore_dotnetcore_runtime_volume")
+		if [[ "$result" == "" ]] ; then
+			continue="false"
+		else
+			sleep 3;
+		fi
+	done;
+fi
